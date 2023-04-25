@@ -1,49 +1,51 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment } from 'react';
 import {
     Button,
     TextField,
     Dialog,
     DialogContent,
     DialogTitle
-} from '@mui/material'
+} from '@mui/material';
 
 class AddCar extends Component {
     state = {
         open: false,
-        name: '',
-        mpg: '',
-        cylinders: '',
-        horsepower: '',
-    }
+        name: "",
+        mpg: "",
+        cylinders: "",
+        horsepower: "",
+    };
 
-    toggleDialog = () => this.setState({ open: !this.state.open })
+    toggleDialog = () => this.setState({ open: !this.state.open });
 
     handleTextChange = (e) => {
-        const newState = { ...this.state }
-        newState[e.target.id] = e.target.value
-        this.setState(newState)
-    }
+        const newState = { ...this.state };
+        newState[e.target.id] = e.target.value;
+        this.setState(newState);
+    };
 
     handleSubmit = (e) => {
-        e.preventDefault()
-        const payload = { ...this.state }
-        payload.id = this.props.carTotal + 1
-        delete payload.open
-        console.log("THE CAR", payload)
+        e.preventDefault();
+        const payload = { ...this.state };
+        payload.id = this.props.carTotal + 1;
+        delete payload.open;
+        console.log("THE CAR", payload);
         // add this.props.addCar function here
+        this.props.addCar(payload);
         // also add this.setState to close the dialog
-    }
+        this.setState({ open: false});
+    };
 
     componentDidUpdate = (prevProps, prevState) => {
         if (prevState.open !== this.state.open) {
             this.setState({
-                name: '',
-                mpg: '',
-                cylinders: '',
-                horsepower: ''
-            })
+                name: "",
+                mpg: "",
+                cylinders: "",
+                horsepower: "",
+            });
         }
-    }
+    };
 
     render() {
         return (
@@ -59,7 +61,7 @@ class AddCar extends Component {
                     </Button>
                 </div>
                 <div>
-                    <Dialog open={this.state.open} onClose={this.toggleDialog} >
+                    <Dialog open={this.state.open} onClose={this.toggleDialog}>
                         <DialogTitle>Add New Car</DialogTitle>
                         <DialogContent>
                             <form 
@@ -96,8 +98,8 @@ class AddCar extends Component {
                     </Dialog>
                 </div>
             </Fragment>
-        )
+        );
     }
 }
 
-export default AddCar
+export default AddCar;
